@@ -1,0 +1,185 @@
+# ⚡ Twilio Phone Number Setup - Quick Reference Card
+
+## 3️⃣ Things You Need
+
+| # | What | Where to Find | Format | Example |
+|---|------|---------------|--------|---------|
+| 1️⃣ | **Account SID** | Twilio Console → Settings → General | ACxxxx... | ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx |
+| 2️⃣ | **Auth Token** | Twilio Console → Settings → General (click SHOW) | xxxx... | your_auth_token_here |
+| 3️⃣ | **Phone Number** | Twilio Console → Phone Numbers → Active Numbers | +XXXXXXXXX | +12125551234 |
+
+---
+
+## 🚀 5-Minute Setup
+
+### 1. Create Twilio Account (2 min)
+```
+Go to: https://www.twilio.com/console
+Sign up → Verify phone → Done!
+```
+
+### 2. Copy Your 3 Values (2 min)
+```
+Settings → General:
+  • Copy Account SID: ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  • Copy Auth Token: (click SHOW, then copy)
+  
+Phone Numbers → Active Numbers:
+  • Copy Phone Number: +1234567890
+```
+
+### 3. Set Environment Variables (1 min)
+**Windows PowerShell:**
+```powershell
+$env:TWILIO_ACCOUNT_SID = "ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+$env:TWILIO_AUTH_TOKEN = "your_auth_token_here"
+$env:TWILIO_PHONE_NUMBER = "+1234567890"
+```
+
+**Linux/Mac:**
+```bash
+export TWILIO_ACCOUNT_SID="ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+export TWILIO_AUTH_TOKEN="your_auth_token_here"
+export TWILIO_PHONE_NUMBER="+1234567890"
+```
+
+---
+
+## ▶️ Start Application
+
+```powershell
+cd D:\InternProject\Urban-Company-main\backend
+.\mvnw.cmd spring-boot:run
+```
+
+✅ If successful → SMS feature is READY!
+
+---
+
+## 🧪 Test SMS Feature
+
+### Create a booking:
+```bash
+curl -X POST http://localhost:8080/api/bookings \
+  -H "Content-Type: application/json" \
+  -d '{
+    "customerName": "John Doe",
+    "customerPhone": "+1234567890",
+    "address": "123 Main St, City",
+    "description": "Service Type",
+    "provider": {"id": 1}
+  }'
+```
+
+### Provider gets SMS:
+```
+🔔 New Service Booking!
+Customer: John Doe
+Phone: +1234567890
+Service: Service Type
+Address: 123 Main St, City
+Status: PENDING
+```
+
+---
+
+## 🔗 Important Links
+
+| Need | Link |
+|------|------|
+| Twilio Console | https://www.twilio.com/console |
+| Settings (Account SID & Token) | https://www.twilio.com/console/account/settings/general |
+| Phone Numbers | https://www.twilio.com/console/phone-numbers/incoming |
+| Pricing | https://www.twilio.com/sms/pricing |
+
+---
+
+## ⚠️ Common Mistakes
+
+| ❌ Mistake | ✅ Fix |
+|-----------|--------|
+| "SMS NOT CONFIGURED" error | Set environment variables BEFORE starting app |
+| Auth Token not working | Click [SHOW] in Twilio Console, copy exact value |
+| Phone number format wrong | Must be: +countrycode (e.g., +12125551234) |
+| Env var not recognized | Restart terminal/IDE after setting |
+| SMS fails silently | Check Twilio account balance/trial credits |
+
+---
+
+## 🔍 Verification Checklist
+
+- [ ] Twilio account created
+- [ ] Account SID copied
+- [ ] Auth Token copied
+- [ ] Phone number copied
+- [ ] Environment variables set
+- [ ] Application started successfully
+- [ ] Test booking created
+- [ ] SMS received (or logged in console)
+
+---
+
+## 📞 Phone Number Format
+
+### ✅ Correct
+```
++1234567890
++12125551234
++441234567890
++919876543210
+```
+
+### ❌ Wrong
+```
+1234567890 (no + or country code)
+(212) 555-1234 (has parentheses)
+212-555-1234 (has dashes)
+```
+
+---
+
+## 💰 Free Trial
+
+- ✅ $15 credit
+- ✅ 1 free phone number
+- ✅ Send SMS to verified numbers
+- ✅ ~2000 SMS messages
+
+---
+
+## 🆘 Quick Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| Can't find Account SID | Go to Settings → General (top-left) |
+| Auth Token shows as ••• | Click [SHOW] button |
+| No phone number yet | Phone Numbers → Buy a Number (instant) |
+| SMS fails with auth error | Verify exact Account SID & Auth Token match Twilio |
+| Environment variable empty | Restart terminal after setting |
+
+---
+
+## 📄 Files Modified
+
+```
+backend/
+├── pom.xml (Twilio dependency added)
+├── src/main/resources/application.properties (Twilio config added)
+├── src/main/java/com/localservice/model/Booking.java (description field)
+├── src/main/java/com/localservice/service/NotificationService.java (SMS logic)
+└── src/main/java/com/localservice/service/LocalService.java (call SMS)
+```
+
+---
+
+## 📚 Detailed Guides
+
+For more details, see:
+- [TWILIO_PHONE_SETUP.md](./TWILIO_PHONE_SETUP.md) - Complete setup guide
+- [TWILIO_CREDENTIALS_VISUAL_GUIDE.md](./TWILIO_CREDENTIALS_VISUAL_GUIDE.md) - Visual walkthrough
+- [QUICK_START_SMS.md](../QUICK_START_SMS.md) - Quick start guide
+
+---
+
+**Print this card and keep it handy!**  
+Last Updated: May 7, 2026
